@@ -118,3 +118,106 @@ join ligcom l on e.numcom=l.numcom
 join produit p on p.codart=l.codart
 join fournis f on f.numfou=e.numfou
 where obscom like '%urgent%';
+
+
+
+-- Lister le nom des fournisseurs susceptibles de livrer au moins un article
+select distinct f.nomfou
+from ligcom l
+join entcom e on e.numcom=l.numcom
+join fournis f on f.numfou=e.numfou
+where l.qtecde>l.qteliv;
+
+
+select nomfou from fournis where numfou in (
+  select numfou from entcom where numcom in (
+    select numcom from ligcom where qtecde>qteliv
+  )
+);
+
+
+
+-- Lister les commandes (Numéro et date) dont le fournisseur est celui de la commande 70210 
+select * from entcom where numfou in (
+  select numfou from entcom where numcom=70210
+);
+
+select e1.*
+from entcom e1
+join entcom e2 on e1.numfou=e2.numfou
+where e2.numcom=70210;
+
+
+-- Dans les articles susceptibles d’être vendus, lister les articles moins chers (basés sur Prix1) que le moins cher des rubans (article dont le premier caractère commence par R). On affichera le libellé de l’article et prix1
+select p.libart, v.prix1
+from vente v
+join produit p on v.codart=p.codart
+where prix1<=(
+  select min(prix1) from vente where codart like 'r%'
+);
+
+
+
+
+-- Editer la liste des fournisseurs susceptibles de livrer les produits dont le stock est inférieur ou égal à 150 % du stock d'alerte. La liste est triée par produit puis fournisseur
+select p.libart, f.nomfou
+from produit p
+join ligcom l on l.codart=p.codart
+join entcom e on e.numcom=l.numcom
+join fournis f on f.numfou=e.numfou
+where l.qtecde>l.qteliv and p.stkphy<(p.stkale*1.5)
+order by 1 ASC, 2 ASC;
+
+
+
+-- Éditer la liste des fournisseurs susceptibles de livrer les produit dont le stock est inférieur ou égal à 150 % du stock d'alerte et un délai de livraison d'au plus 30 jours. La liste est triée par fournisseur puis produit
+select p.libart, f.nomfou
+from produit p
+join ligcom l on l.codart=p.codart
+join entcom e on e.numcom=l.numcom
+join fournis f on f.numfou=e.numfou
+join vente v on v.codart=p.codart and v.numfou=f.numfou
+where l.qtecde>l.qteliv and p.stkphy<(p.stkale*1.5) and v.delliv<=30
+order by 1 ASC, 2 ASC;
+
+
+
+-- Avec le même type de sélection que ci-dessus, sortir un total des stocks par fournisseur trié par total décroissant
+select f.nomfou, sum(p.stkphy)
+from produit p
+join ligcom l on l.codart=p.codart
+join entcom e on e.numcom=l.numcom
+join fournis f on f.numfou=e.numfou
+where l.qtecde>l.qteliv
+group by f.nomfou;
+
+
+-- En fin d'année, sortir la liste des produits dont la quantité réellement commandée dépasse 90% de la quantité annuelle prévue
+
+select p.codart, sum(l.qtecde), p.qteann
+from produit p
+join ligcom l on l.codart=p.codart
+group by p.codart
+having sum(l.qtecde)>(p.qteann*0.9);
+
+
+
+
+
+-- Calculer le chiffre d'affaire par fournisseur pour l'année 93 sachant que les prix indiqués sont hors taxes et que le taux de TVA est 20%.
+
+select f.nomfou, sum(l.qtecde*priuni) * 1.2
+from fournis f
+join entcom e on e.numfou=f.numfou
+join ligcom l on l.numcom=e.numcom
+where YEAR(e.datcom)=2020
+group by f.nomfou
+order by 2 desc;
+
+
+-- Existe-t-il des lignes de commande non cohérentes avec les produits vendus par les fournisseurs. ?
+select e.numfou, l.codart from ligcom l join entcom e on l.numcom=e.numcom
+EXCEPT
+select numfou, codart from vente;
+
+

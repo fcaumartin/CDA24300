@@ -221,3 +221,8 @@ EXCEPT
 select numfou, codart from vente;
 
 
+delete from vente;
+
+update produit set libart='???';
+
+drop table vente;

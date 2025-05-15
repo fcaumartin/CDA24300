@@ -1,0 +1,17 @@
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: Afpa1234
+    volumes:
+    - ./data:/var/lib/mysql
+    ports:
+    - 3309:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - 8080:8080

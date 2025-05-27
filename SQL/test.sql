@@ -1,0 +1,1 @@
+select sum(qte) from article_commande where codart='B002';

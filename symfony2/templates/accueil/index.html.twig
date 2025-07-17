@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<h1>Accueil</h1>
+
+
+<div class="container">
+    <div class="row">
+        {% for categorie in categories %}
+
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3 col-xxl-2 categorie mt-3">
+                <img src="{{categorie.image}}" alt="">
+                {{ categorie.nom }}
+            </div>
+            
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<h1>{{produit.nom}}</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div>
+        {{ produit.image }}
+        </div>
+        <div>
+        {{ produit.description }}
+        </div>
+        <div>
+        {{ produit.prix }}
+        </div>
+        <a href="/panier/add/{{produit.id}}">ajouter au panier</a>
+    </div>
+</div>
+{% endblock %}

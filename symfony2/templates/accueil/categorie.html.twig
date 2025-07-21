@@ -3,16 +3,16 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
-<h1>Accueil</h1>
+<h1>{{categorie.nom}}</h1>
 
 
 <div class="container">
     <div class="row">
-        {% for categorie in categories %}
+        {% for sousCategorie in categorie.sousCategories %}
             <div class="col-12 col-sm-6 col-md-4 col-xl-3 col-xxl-2 categorie mt-3">
-                <a href="/categorie/{{ categorie.id }}">
-                    <img src="{{categorie.image}}" alt="">
-                    {{ categorie.nom }}
+                <a href="/produits/{{ sousCategorie.id }}">
+                    <img src="{{sousCategorie.image}}" alt="">
+                    {{ sousCategorie.nom }}
                 </a>
             </div>
             

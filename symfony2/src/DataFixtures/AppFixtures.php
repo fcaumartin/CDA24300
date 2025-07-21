@@ -24,12 +24,40 @@ class AppFixtures extends Fixture
         $manager->persist($sc1);
 
 
+        $sc2 = new SousCategorie();
+        $sc2->setNom("Guitares Classique");
+        // $sc2->setCategorie($c1);
+        $c1->addSousCategory($sc2);
+        $manager->persist($sc2);
+
+
+        $sc3 = new SousCategorie();
+        $sc3->setNom("Guitares Folk");
+        // $sc3->setCategorie($c1);
+        $c1->addSousCategory($sc3);
+        $manager->persist($sc3);
+
+
         $p1 = new Produit();
         $p1->setNom("Guitare qui brille");
         $p1->setDescription("...");
         $p1->setPrix(12.45);
         $p1->setSousCategorie($sc1);
         $manager->persist($p1);
+
+        $p2 = new Produit();
+        $p2->setNom("Guitare qui joue vite");
+        $p2->setDescription("...");
+        $p2->setPrix(12.45);
+        $p2->setSousCategorie($sc1);
+        $manager->persist($p2);
+
+        $p3 = new Produit();
+        $p3->setNom("Guitare qui joue fort");
+        $p3->setDescription("...");
+        $p3->setPrix(12.45);
+        $p3->setSousCategorie($sc1);
+        $manager->persist($p3);
 
 
 

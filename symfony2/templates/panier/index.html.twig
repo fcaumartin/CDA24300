@@ -9,6 +9,8 @@
         {{ elt.produit.nom }}
         <br>
         {{ elt.quantite }}
+        <a class="btn btn-primary" href="/panier/add/{{ elt.produit.id }}">++</a>
+        <a class="btn btn-primary" href="/panier/del/{{ elt.produit.id }}">--</a>
         </div>
     {% endfor %}
 

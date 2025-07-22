@@ -3,6 +3,18 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
+
+        <div class="col-12 mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="/categorie/{{produit.sousCategorie.categorie.id}}">{{produit.sousCategorie.categorie.nom}}</a></li>
+                    <li class="breadcrumb-item"><a href="/produits/{{produit.sousCategorie.id}}">{{produit.sousCategorie.nom}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{produit.nom}}</li>
+                </ol>
+            </nav>
+        </div>
+
 <h1>{{produit.nom}}</h1>
 
 

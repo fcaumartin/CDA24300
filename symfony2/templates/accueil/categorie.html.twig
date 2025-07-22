@@ -3,7 +3,19 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
+
+        <div class="col-12 mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{categorie.nom}}</li>
+                </ol>
+            </nav>
+        </div>
+
 <h1>{{categorie.nom}}</h1>
+
+
 
 
 <div class="container">
@@ -11,8 +23,13 @@
         {% for sousCategorie in categorie.sousCategories %}
             <div class="col-12 col-sm-6 col-md-4 col-xl-3 col-xxl-2 categorie mt-3">
                 <a href="/produits/{{ sousCategorie.id }}">
-                    <img src="{{sousCategorie.image}}" alt="">
-                    {{ sousCategorie.nom }}
+                        <div class="card" style="">
+                            <img class="card-img-top img-fluid" src="https://picsum.photos/id/{{sousCategorie.id+10}}/400/200" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ sousCategorie.nom }}</h5>
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
                 </a>
             </div>
             

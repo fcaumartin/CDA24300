@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
 use App\Entity\Produit;
+use App\Entity\Categorie;
 use App\Entity\SousCategorie;
+use App\Form\ContactFormType;
+use Symfony\Component\Mime\Email;
 use App\Repository\CategorieRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 
 final class AccueilController extends AbstractController
 {
@@ -55,10 +59,30 @@ final class AccueilController extends AbstractController
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function contact(): Response
+    public function contact(Request $request, MailerInterface $mailer): Response
     {
+        $form = $this->createForm(ContactFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+
+            $email = (new Email())
+                ->from('hello@example.com')
+                ->to('you@example.com')
+                ->subject($data['sujet'])
+                ->html($data['message']);
+
+            $mailer->send($email);
+
+
+            return $this->redirectToRoute('app_accueil');
+        }
+        
         return $this->render('accueil/contact.html.twig', [
             'controller_name' => 'AccueilController',
+            'form' => $form
         ]);
     }
 }

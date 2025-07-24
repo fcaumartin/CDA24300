@@ -17,9 +17,18 @@
           <a class="nav-link" href="/panier">Panier ({{ app.session.get('panier') | length }})</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          {% if app.user %}
+            ({{app.user.email}}) <a class="nav-link" href="/logout"> Logout</a>
+          {% else %}
+            <a class="nav-link" href="/login">Login</a>
+          {% endif %}
+        </li>
+      </ul>
+
+
       </form>
     </div>
   </div>

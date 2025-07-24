@@ -2,16 +2,41 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Categorie;
+use App\Entity\User;
 use App\Entity\Produit;
+use App\Entity\Categorie;
 use App\Entity\SousCategorie;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
+
+        $u1 = new User();
+        $u1->setEmail("test@test.com");
+        $password = $this->hasher->hashPassword($u1, "1234");
+        $u1->setPassword($password);
+        $u1->setRoles(["ROLE_USER"]);
+        $manager->persist($u1);
+
+        $u1 = new User();
+        $u1->setEmail("admin@test.com");
+        $password = $this->hasher->hashPassword($u1, "1234");
+        $u1->setPassword($password);
+        $u1->setRoles(["ROLE_ADMIN"]);
+        $manager->persist($u1);
+
+
         $c1 = new Categorie();
         $c1->setNom("Guitares");
         $c1->setImage("https://picsum.photos/200/300");

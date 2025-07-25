@@ -4,14 +4,16 @@
 
 {% block body %}
 
+    <div class="panier">
     {% for elt in panier %}
-        <div>
-        {{ elt.produit.nom }}
-        <br>
-        {{ elt.quantite }}
-        <a class="btn btn-primary" href="/panier/add/{{ elt.produit.id }}">++</a>
-        <a class="btn btn-primary" href="/panier/del/{{ elt.produit.id }}">--</a>
+        <div class="panier-item">
+            {{ elt.produit.nom }}
+            <br>
+            {{ elt.quantite }}
+            <a class="btn btn-primary" href="/panier/add/{{ elt.produit.id }}">++</a>
+            <a class="btn btn-primary" href="/panier/del/{{ elt.produit.id }}">--</a>
         </div>
     {% endfor %}
+    </div>
 
 {% endblock %}

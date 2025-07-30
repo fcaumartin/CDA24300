@@ -1,0 +1,32 @@
+GET http://127.0.0.1:8000/api/categories
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/api/categories/23
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nom" : "test",
+    "image" : "test"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/api/categories/22
+
+###
+
+PATCH http://127.0.0.1:8000/api/categories/23
+Content-Type: application/merge-patch+json
+Accept: application/json
+
+{
+    "nom" : "modifié"
+}

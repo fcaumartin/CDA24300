@@ -1,0 +1,21 @@
+GET http://127.0.0.1:8000/api/categories
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTM5NTM4NDAsImV4cCI6MTc1Mzk1NzQ0MCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdEB0ZXN0LmNvbSJ9.tlr2AtF4j0TzAoXMfhkMoBZe-Te5mtoTfv6olONNKOaL5V-cZp99lKqvO5Zd-YOkZLSA28jEEIopeMlPHaRfqre7KZjXyKSFDed-N94cRyT7U2SKfhKbzR6hzlOOG2ndK-7VZSKc9ERVYs5CMOPEvXFWAKdFRD9610uudluoKWuA_s2YPrVN6hW7WQHa5xlX_lGcYsU12gx217jkDMQFUOGYhlc3x3DYxod3PSCP_PYdsjnV9rSwz2L9u_7KD-fuokExYKHkSLZHyp8LUHLTOLHUBRLKqEQeQJWPPRJhUW9jO9VbFJyHSD-_vVmE4n0_7RuHFJCBIg1SqHOKQT1uFw
+
+###
+
+POST http://127.0.0.1:8000/api/login_check
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "test@test.com",
+    "password": "1234"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/token/refresh
+Content-Type: application/x-www-form-urlencoded
+
+refresh_token=ded8a80734c700386586f1b17e6dfe331d7d40c5455845de83e0ea5cc1b82cf152a46dcfcf67a1da91369dd44fe494d9d5ac6b46994fe48d7050ff1e14e774e0

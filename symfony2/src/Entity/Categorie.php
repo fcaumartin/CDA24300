@@ -2,29 +2,36 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[ApiResource(normalizationContext: ['groups' => ['read:categorie']])]
 class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read:categorie"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:categorie"])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["read:categorie"])]
     private ?string $image = null;
 
     /**
      * @var Collection<int, SousCategorie>
      */
     #[ORM\OneToMany(targetEntity: SousCategorie::class, mappedBy: 'categorie')]
+    #[Groups(["read:categorie"])]
     private Collection $sousCategories;
 
     public function __construct()

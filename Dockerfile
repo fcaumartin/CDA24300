@@ -1,7 +1,7 @@
 FROM debian:12
 
 RUN apt-get update
-RUN apt install curl wget lsb-release ca-certificates -y
+RUN apt install curl wget lsb-release ca-certificates unzip plantuml -y
 
 # all php versions
 RUN curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb

@@ -2,28 +2,36 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\ProduitRepository;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[ApiResource(normalizationContext: ['groups' => ['read:produit']])]
 class Produit
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read:souscategorie", "read:produit"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["read:souscategorie", "read:produit"])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(["read:souscategorie", "read:produit"])]
     private ?string $image = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["read:souscategorie", "read:produit"])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(["read:souscategorie"])]
     private ?string $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]

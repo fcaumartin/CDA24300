@@ -15,4 +15,10 @@ final class ProfileController extends AbstractController
             'controller_name' => 'ProfileController',
         ]);
     }
+
+    #[Route('/api/profile', name: 'app_profile_json')]
+    public function profile(): Response
+    {
+        return $this->json([ "nom" => "test" ]);
+    }
 }
